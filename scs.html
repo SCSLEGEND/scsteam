@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://zentoflick.ct.ws/html2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="SCS Academy - Waiting for You">
+    <meta property="og:description" content="A cybersecurity hub protecting the digital world through innovation and expertise.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=SCS+Academy">
+    <meta property="og:type" content="website">
+    <title>SCS Academy</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 255, 204, 0.05) 3px, rgba(0, 255, 204, 0.05) 4px);
+            pointer-events: none;
+            z-index: 1;
+            animation: scanLineOverlay 5s linear infinite;
+        }
+        canvas#particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            border: 3px solid #00ffcc;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 50px rgba(0, 255, 204, 0.8);
+            animation: flickerBorder 3s infinite ease-in-out;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 0 45px rgba(0, 255, 204, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .tablink {
+            background: transparent;
+            color: #00ffcc;
+            padding: 12px 35px;
+            cursor: pointer;
+            border: 1px solid #00ffcc;
+            border-radius: 10px;
+            font-size: 20px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .tablink::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 255, 204, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+        .tablink:hover::after {
+            width: 350px;
+            height: 350px;
+        }
+        .tablink:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 35px #00ffcc;
+            transform: translateY(-4px);
+            animation: glitch 0.3s linear;
+        }
+        .tablink.active {
+            background: #00ffcc;
+            color: #000;
+            animation: neonGlow 1.5s infinite ease-in-out;
+        }
+        .tabcontent {
+            display: none;
+            padding: 45px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 0 55px rgba(0, 255, 204, 0.7);
+            backdrop-filter: blur(14px);
+            animation: slideInTab 0.6s ease-out;
+        }
+        .tabcontent.active {
+            display: block;
+        }
+        h1 {
+            text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc, 0 0 45px #00ffcc;
+            font-size: 56px;
+            text-align: center;
+            animation: neonGlow 2s infinite ease-in-out;
+        }
+        h3 {
+            text-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc;
+            font-size: 32px;
+        }
+        p, li {
+            font-size: 22px;
+            text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+        p:hover, li:hover {
+            text-shadow: 0 0 12px #00ffcc, 0 0 25px #00ffcc;
+            animation: glitch 0.3s linear;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+        }
+        .discord-link {
+            background: #5865F2;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px #5865F2;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        .discord-link::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 255, 204, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+        .discord-link:hover::after {
+            width: 250px;
+            height: 250px;
+        }
+        .discord-link:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 30px #00ffcc;
+            transform: translateY(-4px);
+            animation: glitch 0.3s linear;
+        }
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff4444;
+            color: #000;
+            border: none;
+            padding: 12px 35px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px #ff4444;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        .fullscreen-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 255, 204, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+        .fullscreen-btn:hover::after {
+            width: 250px;
+            height: 250px;
+        }
+        .fullscreen-btn:hover {
+            background: #00ffcc;
+            box-shadow: 0 0 30px #00ffcc;
+            transform: translateY(-4px);
+            animation: glitch 0.3s linear;
+        }
+        .footer {
+            margin-top: 35px;
+            font-size: 20px;
+            text-align: center;
+            text-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc;
+            animation: neonGlow 2.5s infinite ease-in-out;
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+        .loading-text {
+            font-size: 48px;
+            text-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+            animation: scanLine 1.5s infinite ease-in-out;
+        }
+        .progress-bar {
+            width: 350px;
+            height: 10px;
+            background: rgba(0, 255, 204, 0.2);
+            border-radius: 5px;
+            margin-top: 25px;
+            overflow: hidden;
+        }
+        .progress-bar::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 100%;
+            background: #00ffcc;
+            animation: progressFill 1.5s ease-in-out forwards;
+        }
+        @keyframes flickerBorder {
+            0% { box-shadow: 0 0 50px rgba(0, 255, 204, 0.8); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.5); }
+            51% { box-shadow: 0 0 50px rgba(0, 255, 204, 0.8); }
+            100% { box-shadow: 0 0 50px rgba(0, 255, 204, 0.8); }
+        }
+        @keyframes neonGlow {
+            0% { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; transform: scale(1); }
+            50% { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; transform: scale(1.02); }
+            100% { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; transform: scale(1); }
+        }
+        @keyframes slideInTab {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scanLine {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(10px); opacity: 0.7; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes scanLineOverlay {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        @keyframes progressFill {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+    <link href="./SCS Academy_files/css2" rel="stylesheet">
+</head>
+<body>
+    <canvas id="particle-bg" width="1920" height="919"></canvas>
+    <div class="loading-screen" id="loadingScreen" style="animation: 0.7s ease-out 0s 1 normal forwards running fadeOut; display: none;">
+        <div class="loading-text">INITIALIZING SCS ACADEMY...</div>
+        <div class="progress-bar"></div>
+    </div>
+    <button class="fullscreen-btn" onclick="goFullscreen()">FULLSCREEN MODE</button>
+    <div class="container">
+        <h1>SCS Academy</h1>
+        <div class="tabs">
+            <button class="tablink active" onclick="openTab(event, &#39;Home&#39;)">HOME</button>
+            <button class="tablink" onclick="openTab(event, &#39;Info&#39;)">INFO BY US</button>
+            <button class="tablink" onclick="openTab(event, &#39;Hackers&#39;)">HACKER CREW</button>
+            <button class="tablink" onclick="openTab(event, &#39;Admin&#39;)">ADMIN CORE</button>
+            <button class="tablink" onclick="openTab(event, &#39;Owner&#39;)">OWNER</button>
+        </div>
+
+        <div id="Home" class="tabcontent active">
+            <h3>App Arsenal</h3>
+            <ul>
+                <li><a class="discord-link" href="https://disboard.org/fr/server/1290666451920752772" target="_blank">Server Discord</a></li>
+            </ul>
+        </div>
+
+        <div id="Info" class="tabcontent">
+            <h3>Info by Us</h3>
+            <p>SCS Academy is dedicated to advancing cybersecurity, protecting the digital world through innovation and expertise.</p>
+        </div>
+
+        <div id="Hackers" class="tabcontent">
+            <h3>Hacker Crew</h3>
+            <ul>
+                <li>sehs_3_49456</li>
+                <li>fnaf0689_46996</li>
+                <li>icreepz</li>
+                <li>n3x33</li>
+            </ul>
+        </div>
+
+        <div id="Admin" class="tabcontent">
+            <h3>Admin Core</h3>
+            <ul>
+                <li>triada88550</li>
+            </ul>
+        </div>
+
+        <div id="Owner" class="tabcontent">
+            <h3>Owner</h3>
+            <ul>
+                <li>scslegendmaster</li>
+            </ul>
+        </div>
+
+        <div class="footer">Created by SCS Academy</div>
+    </div>
+
+    <script>
+        // Enhanced particle background with color shifts
+        const canvas = document.getElementById('particle-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speed: Math.random() * 2 + 1,
+                baseSpeed: Math.random() * 2 + 1,
+                baseSize: Math.random() * 2 + 1,
+                hue: Math.random() * 60 + 160 // Hue range around cyan (160-220)
+            });
+        }
+
+        let mouseX = null, mouseY = null;
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        canvas.addEventListener('mouseout', () => {
+            mouseX = null;
+            mouseY = null;
+        });
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                let dist = mouseX && mouseY ? Math.sqrt((p.x - mouseX) ** 2 + (p.y - mouseY) ** 2) : Infinity;
+                let glow = dist < 100 ? (100 - dist) / 100 : 0;
+                p.size = p.baseSize + glow * 3;
+                ctx.fillStyle = `hsl(${p.hue}, 100%, 50%)`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.y += p.speed;
+                if (p.y > canvas.height) p.y = 0;
+                p.hue = (p.hue + 0.5) % 220; // Shift hue for color transition
+                if (p.hue < 160) p.hue = 160;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function goFullscreen() {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => {
+                    console.error(`CYBER ERROR: ${err.message}`);
+                });
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        window.onload = function() {
+            setTimeout(function() {
+                var loadingScreen = document.getElementById("loadingScreen");
+                if (loadingScreen) {
+                    loadingScreen.style.animation = "fadeOut 0.7s ease-out forwards";
+                    setTimeout(function() {
+                        loadingScreen.style.display = "none";
+                    }, 700);
+                }
+            }, 2000);
+
+            // Debug: Force hide if still visible after 3 seconds
+            setTimeout(function() {
+                var loadingScreen = document.getElementById("loadingScreen");
+                if (loadingScreen && loadingScreen.style.display !== "none") {
+                    loadingScreen.style.display = "none";
+                }
+            }, 3000);
+        };
+    </script>
+
+</body></html>
