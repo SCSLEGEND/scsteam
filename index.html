@@ -300,34 +300,34 @@
 <body>
     <canvas id="particle-bg" width="1920" height="919"></canvas>
     <div class="loading-screen" id="loadingScreen" style="animation: 0.7s ease-out 0s 1 normal forwards running fadeOut; display: none;">
-        <div class="loading-text">INITIALIZING SCS ACADEMY...</div>
+        <div class="loading-text">INITIALIZING SCS ORGANIZATION...</div>
         <div class="progress-bar"></div>
     </div>
     <button class="fullscreen-btn" onclick="goFullscreen()">FULLSCREEN MODE</button>
     <div class="container">
-        <h1>SCS Academy</h1>
+        <h1>SCS Organization</h1>
         <div class="tabs">
             <button class="tablink active" onclick="openTab(event, &#39;Home&#39;)">HOME</button>
-            <button class="tablink" onclick="openTab(event, &#39;Info&#39;)">INFO BY US</button>
-            <button class="tablink" onclick="openTab(event, &#39;Hackers&#39;)">HACKER CREW</button>
-            <button class="tablink" onclick="openTab(event, &#39;Admin&#39;)">ADMIN CORE</button>
-            <button class="tablink" onclick="openTab(event, &#39;Owner&#39;)">OWNER</button>
+            <button class="tablink" onclick="openTab(event, &#39;Info&#39;)">ABOUT US</button>
+            <button class="tablink" onclick="openTab(event, &#39;Hackers&#39;)">AGENCY</button>
+            <button class="tablink" onclick="openTab(event, &#39;Admin&#39;)">LEADERS CORE</button>
+            <button class="tablink" onclick="openTab(event, &#39;Owner&#39;)">FOUNDER</button>
         </div>
 
         <div id="Home" class="tabcontent active">
-            <h3>App Arsenal</h3>
+            <h3>Arsenal App</h3>
             <ul>
-                <li><a class="discord-link" href="https://disboard.org/fr/server/1290666451920752772" target="_blank">Server Discord</a></li>
+                <li><a class="discord-link" href="https://disboard.org/fr/server/1290666451920752772" target="_blank">Discord Server</a></li>
             </ul>
         </div>
 
         <div id="Info" class="tabcontent">
-            <h3>Info by Us</h3>
-            <p>SCS Academy is dedicated to advancing cybersecurity, protecting the digital world through innovation and expertise.</p>
+            <h3>About us</h3>
+            <p>Are you looking, for academy specialized in penetration/hacking at all fields? SCS Academy has you covered. We are into Red Teaming, Bug Bounty Hunting overall, we teach side fields as Reverse Engineering, Exploit Development, Malware Development, Penetration Testing, and much more. Consider joining us for opportunities for learning and jobs! As well, we have organization that you can join and work with us overall and with our teams.</p>
         </div>
 
         <div id="Hackers" class="tabcontent">
-            <h3>Hacker Crew</h3>
+            <h3>SCS Agents</h3>
             <ul>
                 <li>sehs_3_49456</li>
                 <li>fnaf0689_46996</li>
@@ -337,24 +337,23 @@
         </div>
 
         <div id="Admin" class="tabcontent">
-            <h3>Admin Core</h3>
+            <h3>Leaders Core</h3>
             <ul>
                 <li>triada88550</li>
             </ul>
         </div>
 
         <div id="Owner" class="tabcontent">
-            <h3>Owner</h3>
+            <h3>Founder</h3>
             <ul>
                 <li>scslegendmaster</li>
             </ul>
         </div>
 
-        <div class="footer">Created by SCS Academy</div>
+        <div class="footer">Created by SCS Team</div>
     </div>
 
     <script>
-        // Enhanced particle background with color shifts
         const canvas = document.getElementById('particle-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -369,7 +368,7 @@
                 speed: Math.random() * 2 + 1,
                 baseSpeed: Math.random() * 2 + 1,
                 baseSize: Math.random() * 2 + 1,
-                hue: Math.random() * 60 + 160 // Hue range around cyan (160-220)
+                hue: Math.random() * 60 + 160
             });
         }
 
@@ -395,7 +394,7 @@
                 ctx.fill();
                 p.y += p.speed;
                 if (p.y > canvas.height) p.y = 0;
-                p.hue = (p.hue + 0.5) % 220; // Shift hue for color transition
+                p.hue = (p.hue + 0.5) % 220;
                 if (p.hue < 160) p.hue = 160;
             });
             requestAnimationFrame(animateParticles);
@@ -447,7 +446,6 @@
                 }
             }, 2000);
 
-            // Debug: Force hide if still visible after 3 seconds
             setTimeout(function() {
                 var loadingScreen = document.getElementById("loadingScreen");
                 if (loadingScreen && loadingScreen.style.display !== "none") {
