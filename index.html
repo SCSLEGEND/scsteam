@@ -194,8 +194,8 @@
             font-size: 14px;
             padding: 8px 18px;
             max-width: 90%;
-            top: 10px;
-            right: 10px;
+            top: 5px;
+            right: 5px;
         }
         .fullscreen-btn::after {
             content: '';
@@ -521,16 +521,16 @@
         fsBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
-                fsBtn.textContent = 'Exit Fullscreen';
+                fsBtn.textContent = '⇲';
             } else {
                 document.exitFullscreen();
-                fsBtn.textContent = 'Go Fullscreen';
+                fsBtn.textContent = '⇱';
             }
         });
 
         document.addEventListener('fullscreenchange', () => {
             if (!document.fullscreenElement) {
-                fsBtn.textContent = 'Go Fullscreen';
+                fsBtn.textContent = '⇱';
             }
         });   
     </script>
