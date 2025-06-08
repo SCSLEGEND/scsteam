@@ -515,6 +515,24 @@
                 }
             }, 3000);
         };
+
+        const fsBtn = document.querySelector('.fullscreen-btn');
+
+        fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                fsBtn.textContent = 'Exit Fullscreen';
+            } else {
+                document.exitFullscreen();
+                fsBtn.textContent = 'Go Fullscreen';
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fsBtn.textContent = 'Go Fullscreen';
+            }
+        });   
     </script>
 
 </body></html>
